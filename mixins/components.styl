@@ -1,0 +1,60 @@
+// @import './layouts'
+
+cta()
+    dblock()
+    w fit-content
+    txt white nodeco
+    pb .75em
+    pi @padding-block * 2
+    bgclr accent-clr
+    border 2px solid @background-color
+    box-shadow 0 .25em .5em transparentify(@background-color, 40%)
+    rad .67em
+    // transition transform .2s
+    fs inherit
+    select none
+    // &:active
+        // y 3
+    &--secondary
+        clr @background-color
+        bgclr #0000
+        box-shadow none
+    &--tertiary
+        border none
+        bgclr #0000
+        txt u accent-clr
+        box-shadow none
+
+form()
+    dgrid spacer
+    &__name
+        fclamp 2.25rem 10vw 3rem
+        mbe spacer
+    &__section
+        dgrid (spacer / 2)
+    &__label
+        fs inherit
+    &__input, &__textarea
+        outline 0
+        border 1px solid black
+        rad .25em
+        fs inherit
+        pb .5em
+        pi .5em
+        &:focus, &:focus-visible
+            outline 3px solid accent-clr
+
+    &__textarea
+        resize vertical
+        minh 20ch
+        
+    &__submit
+        cta()
+        w 100
+        outline 0
+        border 0
+        rad .67em
+        fs inherit
+        fw 900
+        mbs spacer * 1.5
+    

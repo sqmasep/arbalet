@@ -1,0 +1,55 @@
+//// Margins & paddings
+spacing(type, arguments)
+    // if arguments is a 'unit'
+    //     {type} arguments
+    // else if arguments == 'auto'
+    //     {type} auto
+    // else
+    //     error("Arguments must be unit or 'auto'")
+    {type} arguments
+
+// block start
+mbs()
+    spacing('margin-block-start', arguments)
+pbs()
+    spacing('padding-block-start', arguments)
+
+// block end
+mbe()
+    spacing('margin-block-end', arguments)
+pbe()
+    spacing('padding-block-end', arguments)
+
+// block
+mb()
+    spacing('margin-block', arguments)
+pb()
+    spacing('padding-block', arguments)
+
+// inline start
+
+mis()
+    spacing('margin-inline-start', arguments)
+pis()
+    spacing('padding-inline-start', arguments)
+
+// inline end
+mie()
+    spacing('margin-inline-end', arguments)
+pie()
+    spacing('padding-inline-end', arguments)
+
+// inline
+mi()
+    spacing('margin-inline', arguments)
+pi()
+    spacing('padding-inline', arguments)
+
+// global
+mg()
+    spacing('margin', arguments)
+pg()
+    spacing('padding', arguments)
+
+
+

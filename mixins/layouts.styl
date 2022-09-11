@@ -1,0 +1,234 @@
+// @import './spacing'
+
+w() // no unit: defaults to %
+    if typeof(arguments) == 'ident' or typeof(arguments) == 'literal'
+        width arguments
+    else
+        width arguments * 1%
+
+minw() // no unit: defaults to %
+    if typeof(arguments) == 'ident' or typeof(arguments) == 'literal'
+        min-width arguments
+    else
+        min-width arguments * 1%
+
+maxw() // no unit: defaults to %
+    if typeof(arguments) == 'ident' or typeof(arguments) == 'literal'
+        max-width arguments
+    else
+        max-width arguments * 1%
+
+h() // no unit: defaults to %
+    if typeof(arguments) == 'ident' or typeof(arguments) == 'literal'
+        height arguments
+    else
+        height arguments * 1%
+
+minh() // no unit: defaults to %
+    if typeof(arguments) == 'ident' or typeof(arguments) == 'literal'
+        min-height arguments
+    else
+        min-height arguments * 1%
+
+maxh() // no unit: defaults to %
+    if typeof(arguments) == 'ident' or typeof(arguments) == 'literal'
+        max-height arguments
+    else
+        max-height arguments * 1%
+
+
+pos()
+    if rel in arguments
+        position relative
+    else if abs in arguments
+        position absolute
+    else
+        position arguments
+
+relative()
+    pos relative
+
+// absolute()
+//     pos absolute
+//     if arguments
+//         top arguments[]
+
+// fixed()
+//     pos fixed
+//     for arg, index in arguments
+//         if index % 2 == 1
+//             {arg}
+
+
+resp()
+    w 101.25rem
+    maxw calc(100% - 2rem)
+    mi auto
+
+
+//// Displays
+// flex
+dflex()
+    display flex
+    if jcs in arguments
+        justify-content start
+    if sb in arguments or jcsb in arguments
+        justify-content space-between
+    if jcc in arguments
+        justify-content center
+    if jce in arguments
+        justify-content end
+    if ais in arguments
+        align-items start
+    if aic in arguments
+        align-items center
+    if aie in arguments
+        align-items end
+    if acc in arguments
+        align-content center
+    if w in arguments or wrap in arguments
+        flex-wrap wrap
+    if wrev in arguments or wraprev in arguments
+        flex-wrap wrap-reverse
+    if now in arguments or nowrap in arguments
+        flex-wrap nowrap
+    if col in arguments
+        flex-direction column
+    if colrev in arguments
+        flex-direction column-reverse
+    if row in arguments
+        flex-direction row
+    if rowrev in arguments
+        flex-direction row-reverse
+    if grow in arguments
+        & > *
+            flex-grow 1
+    if shrink in arguments
+        & > *
+            flex-shrink 1
+    for arg in arguments
+        if arg is a 'unit'
+            gap arg
+
+// Grid
+dgrid()
+    display grid
+    if aic in arguments
+        align-items center
+    if acc in arguments
+        align-content center
+    if pcs in arguments
+        place-content start
+    if pcc in arguments
+        place-content center
+    if pce in arguments
+        place-content end
+    if pis in arguments
+        place-items start
+    if pic in arguments
+        place-items center
+    if pie in arguments
+        place-items end
+
+    for arg in arguments
+        if arg is a 'unit'
+            gap arg
+
+gtc()
+    grid-template-columns arguments
+gtr()
+    grid-template-rows arguments
+gta()
+    grid-template-areas arguments
+ga()
+    grid-area arguments
+
+
+
+self()
+    if as in arguments
+        align-self start
+    if ac in arguments
+        align-self center
+    if ae in arguments
+        align-self end
+
+    if js in arguments
+        justify-self start
+    if jc in arguments
+        justify-self center
+    if je in arguments
+        justify-self end
+    
+    if start in arguments
+        place-self start
+    if center in arguments
+        place-self center
+    if end in arguments
+        place-self end
+
+// Block
+dblock()
+    display block
+// None
+dnone()
+    display none
+
+x(offset)
+    transform translateX(offset * 1px)
+
+y(offset)
+    transform translateY(offset * 1px)
+z(offset)
+    transform translateZ(offset * 1px)
+
+rX(deg)
+    transform rotateX(deg * 1deg)
+
+rY(deg)
+    transform rotateY(deg * 1deg)
+
+rZ(deg)
+    transform rotateZ(deg * 1deg)
+
+sc(x, y)
+    transform scale(x, y)
+
+scX()
+    transform scaleX(arguments)
+
+scY()
+    transform scaleY(arguments)
+
+scZ()
+    transform scaleZ(arguments)
+
+
+rad()
+    border-radius arguments
+
+radtop()
+    border-start-start-radius arguments
+    border-start-end-radius arguments
+
+radleft()
+    border-start-start-radius arguments
+    border-end-start-radius arguments
+
+radright()
+    border-start-end-radius arguments
+    border-end-end-radius arguments
+
+radbottom()
+    border-end-start-radius arguments
+    border-end-end-radius arguments
+
+
+lineclamp(lines)
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: lines;
+    overflow: hidden;
+
+ratio()
+    aspect-ratio arguments

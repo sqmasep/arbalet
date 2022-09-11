@@ -1,0 +1,19 @@
+{
+  "name": "arbalet",
+  "version": "1.0.0",
+  "description": "Stylus utility mixins and more",
+  "main": "index.styl",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gitrepo"
+  },
+  "keywords": [
+    "stylus",
+    "css"
+  ],
+  "author": "sqmasep",
+  "license": "ISC"
+}

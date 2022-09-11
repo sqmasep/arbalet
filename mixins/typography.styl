@@ -1,0 +1,86 @@
+fs()
+    font-size arguments
+
+fw()
+    font-weight arguments
+ffam()
+    font-family arguments
+
+fclamp()
+    fs clamp(unquote(join(',', arguments)))
+
+
+text()
+    if i in arguments or italic in arguments
+        font-style italic
+    if uc in arguments or uppercase in arguments
+        text-transform uppercase
+    if lc in arguments or lowercase in arguments
+        text-transform lowercase
+    if cc in arguments or capitalize in arguments
+        text-transform capitalize
+
+    if u in arguments or underline in arguments
+        text-decoration underline
+    if nodeco in arguments
+        text-decoration none
+    
+    if now in arguments or nowrap in arguments
+        white-space nowrap
+        
+    if left in arguments or start in arguments
+        text-align start
+    if right in arguments or end in arguments
+        text-align: end
+    if center in arguments
+        text-align center
+
+
+    for arg in arguments
+        if arg is a 'unit'
+            if length(unit(arg))
+                fs arg
+            else
+                fw arg
+
+        if arg is a 'color'
+            clr arg
+        
+        if arg is a 'string'
+            ffam arg
+    
+txt()
+    text(arguments)
+
+deco()
+    text-decoration arguments
+
+italic()
+    font-style italic
+uppercase()
+    text-transform uppercase
+capitalize()
+    text-transform capitalize
+lowercase()
+    text-transform lowercase
+
+underline(from = left)
+    position relative
+    deco none
+    &::before
+        content ''
+        pos absolute
+        w  100%
+        h .125em
+        bgclr currentColor
+        bottom -20%
+        left 0
+        scX 0
+        transform-origin from
+        transition transform .3s
+    &:hover::before
+        scX 1
+
+select()
+    user-select: arguments
+
