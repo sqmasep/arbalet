@@ -8,11 +8,13 @@ Arbalet is a stylus library that provides various mixins. The main purpose is to
 npm i -D arbalet
 ```
 
-## Utils
+# Utils
 
-Note that when a mixin has `arguments` in it, you can put any args in the mixin although it's not explicitly written between the parentheses
+Note that when a mixin has `arguments` in it, you can put any args in the mixin although it's not explicitly written between the parentheses in the source code
 
-### `remixicon() | boxicon()`
+## Icons
+
+### `remixicon()` | `boxicon()`
 
 Imports Remix Icons/Box Icons
 
@@ -26,9 +28,9 @@ boxicon()
     @import url('https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css')
 ```
 
-NOTE: this is not the most optimized method, for production consider adding the cdn with the <link> tag
+NOTE: this is not the most optimized method, for production consider adding the cdn with the `<link>` tag
 
-### `print(thing) | log(thing)`
+### `print(thing)` | `log(thing)`
 
 Prints in the console whatever value you passed to it
 
@@ -42,6 +44,8 @@ log(thing)
     p(thing)
 ```
 
+## Debug
+
 ### `debug()`
 
 Outlines all elements in black and replace the background to a semi-transparent green
@@ -54,9 +58,18 @@ To use this, you have to add a script, which is not available for now. It allows
 
 ### `importfont(names, weights, type)`
 
+Imports a font from Google Fonts
+
+```stylus
+// Example
+importfont('Readex Pro', 400..700)
+```
+
+## Reset & globals
+
 ### `reset()`
 
-Arbalet's reset for top-level CSS. Arbalet uses `@layer reset` for reset mixin
+Arbalet's reset for global CSS, just call the mixin in your global stylus file. Arbalet uses `@layer reset` for reset mixin
 
 ### `focus()`
 
@@ -89,11 +102,11 @@ Custom your scrollbar. Only works for Chrome for now
 {thumb} // background color of the thumb
 {hover} // background color of the thumb when hover. Defaults to darken(thumb, 10%)
 {active} // background color of the thumb when active. Defaults to darken(thumb, 20%)
-
+{margin} // optional, it adds space between the thumb and the track
 
 // Example
 scrollbar({
-    size: 4px,
+    size: 15px,
     thumb: #999,
     margin: 3px
 })
@@ -108,11 +121,14 @@ Sets the selection background & text color
 selection(#0048ff, white)
 ```
 
+## Colors, backgrounds
+
 ### `clr()`
 
 Shorthand for `color` property
 
 ```stylus
+// Example
 .myelement
     clr #0048ff
 ```
@@ -132,13 +148,72 @@ Shorthand for `background-color` property
 Shorthand for `background-image` property
 
 ```stylus
+// Example
 .myelement
     bgimg url("https://lapatrie.org/myimage.png")
 ```
 
-### `JAR`
+### `lgradient()`
 
-## Components
+Shorthand for `background-image: linear-gradient(arguments)`
+
+```stylus
+// Example
+.myelement
+    lgradient to right, #0048ff, #ae00ff
+```
+
+### `rgradient()`
+
+Shorthand for `background-image: radial-gradient(arguments)`
+
+```stylus
+// Example
+.myelement
+    rgradient circle, #0048ff, #ae00ff
+```
+
+### `textgradient()`
+
+Adds a gradient to a text. Only works with linear gradient for now.
+
+```stylus
+// Example
+.myelement
+    textgradient to right, #0048ff, #ae00ff
+```
+
+### `bg()`
+
+Shorthand for `background` property
+
+```stylus
+// Example
+.myelement
+    bg #232425
+```
+
+### `bgblur(value)`
+
+Shorthand for `backdrop-filter: blur(value)` property. Now works on Firefox as well
+
+```stylus
+// Example
+.myelement
+    bgblur .5rem
+```
+
+### `bgclip()`
+
+Shorthand for `background-clip` property.
+
+```stylus
+// Example
+.myelement
+    bgclip text
+```
+
+# Components
 
 Arbalet uses `@layer components` for components mixins
 
@@ -150,31 +225,30 @@ Creates a default styling for CTAs based on BEM naming convention
 
 Creates a default styling form & form components based on BEM naming convention
 
-## Layouts
+# Layouts
 
-### Width and height
+## Width and height
 
 w() for width, maxw() for max-width, minw() for min-width. Same thing for height, h(), maxh(), minh()
 
-Use case
-
 ```stylus
-// It defaults to % if no unit provided
+// Example
+// Defaults to % if no unit provided
 body
     w 100 // 100%
-    maxw calc(100% - 2rem)
+    maxw calc(100% - 2rem) // no compilation
     minh 20rem // 20rem
 ```
 
 ### Position
 
-Use case
-
 ```stylus
+rel // relative
+abs // absolute
+
+// Example
 .myelement
     pos rel // relative
-    pos abs // absolute
-    pos fixed // other ones
 ```
 
 ### Flex
@@ -187,7 +261,6 @@ Use case
 jcs // justify-content: start;
 jcc // justify-content: center;
 jce // justify-content: end;
-
 sb // justify-content: space-between;
 
 // Example
@@ -237,6 +310,7 @@ rowrev // flex-direction: row-reverse;
 `gap` is the only unit-typed argument, so just add it to the arguments list
 
 ```stylus
+// Example
 .myelement
     dflex 2rem
 ```
@@ -265,6 +339,23 @@ shrink // flex-shrink: 1;
 .myelement > *
     flex-grow: 1;
 
+```
+
+Here is a complete example (yes, it saves so much keystrokes)
+
+```stylus
+// with arbalet
+.myelement
+    dflex aic 2rem w grow
+
+// compiles to:
+.myelement
+    display flex
+    align-items center
+    gap 2rem
+    flex-wrap wrap
+    & > *
+        flex-grow 1
 ```
 
 ### Grid
@@ -486,6 +577,54 @@ pie()
 
 ## Typography
 
+### fs
+
+```stylus
+// Source
+fs()
+    font-size arguments
+
+// Example
+.myelement
+    fs 1.5rem
+```
+
+### fclamp
+
+```stylus
+// Source
+fclamp()
+    font-size clamp(unquote(join(',', arguments)))
+
+// Example
+.myelement
+    fclamp 1rem 12vw 1.5rem
+```
+
+### fw
+
+```stylus
+// Source
+fw()
+    font-weight arguments
+
+// Example
+.myelement
+    fw 700
+```
+
+### ffam
+
+```stylus
+// Source
+ffam()
+    font-family arguments
+
+// Example
+.myelement
+    ffam 'Readex Pro', sans-serif
+```
+
 ### txt | text
 
 ```stylus
@@ -504,19 +643,29 @@ left // text-align: left;
 center // text-align: center;
 right // text-align: right;
 
+1rem // if unit, font-size
+#0048ff // if color, clr (color)
+"Readex Pro" // if string, font-family
+```
 
+### underline(from)
 
+This is probably not what you expect, it creates an underline animation when hovered, by using `::before` pseudo-element
+
+```stylus
+// Example
+.link
+    underline(left)
 ```
 
 ## Custom variables
+
+You can directly access to the `variables.styl` file to implement your variables. Some variables are already defaulted (Soon)
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
-
 ## License
 
-// GPL v3 license??
-[MIT](https://choosealicense.com/licenses/mit/)
+[GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
