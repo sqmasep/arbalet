@@ -113,10 +113,18 @@ dflex()
 // Grid
 dgrid()
     display grid
+    if ais in arguments
+        align-items start
     if aic in arguments
         align-items center
+    if aie in arguments
+        align-items end
+    if acs in arguments
+        align-content start
     if acc in arguments
         align-content center
+    if ace in arguments
+        align-content end
     if pcs in arguments
         place-content start
     if pcc in arguments
