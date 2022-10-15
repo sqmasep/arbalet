@@ -28,7 +28,9 @@ boxicon()
     @import url('https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css')
 ```
 
-NOTE: this is not the most optimized method, for production consider adding the cdn with the `<link>` tag
+NOTE: this is not the most optimized method, for production consider adding the cdn with the `<link>` tag instead
+
+## Debug
 
 ### `print(thing)` | `log(thing)`
 
@@ -37,6 +39,8 @@ Prints in the console whatever value you passed to it
 source code:
 
 ```stylus
+@import 'arbalet'
+
 print(thing)
     p(thing)
 
@@ -44,23 +48,31 @@ log(thing)
     p(thing)
 ```
 
-## Debug
-
 ### `debug()`
 
-Outlines all elements in black and replace the background to a semi-transparent green
+Outlines all elements in black and replace the background to a semi-transparent green. This is useful to debug CSS to see where HTML tags are, how they behave together etc
 
-This is useful to debug CSS to see where HTML tags are, how they behave together etc
+### `debugLive`
 
-### `debugLive()`
+To use this, you have to add a script to your top-level file app (index.tsx in React for example). It allows you to toggle the debug function on the HTML page directly, and also when you press <kbd>CTRL</kbd>, you will see the current element in red, the parent element in orange, and the siblings in blue.
 
-To use this, you have to add a script, which is not available for now. It allows you to toggle the debug function on the HTML page directly
+```jsx
+import "arbalet/scripts/debugLive";
+```
+
+To enable it, press <kbd>CTRL</kbd>+<kbd>\*</kbd>. You can also call the mixin `debugLive()` to show a toggle button. It can takes arguments, to position the button
+
+```stylus
+debugLive(bottom left) // defaults to bottom right
+```
 
 ### `importfont(names, weights, type)`
 
 Imports a font from Google Fonts
 
 ```stylus
+@import 'arbalet'
+
 // Example
 importfont('Readex Pro', 400..700)
 ```
@@ -76,6 +88,7 @@ Arbalet's reset for global CSS, just call the mixin in your global stylus file. 
 Compose your focus state, it will be applied to `a` tag, tabindex, `input`, `textarea`, `button`. It uses `:focus-visible` pseudo-class
 
 ```stylus
+
 // Source
 focus()
     a:focus-visible,
@@ -87,6 +100,8 @@ focus()
         {block}
 
 // Example
+@import 'arbalet'
+
 focus()
     outline 2px solid #0048ff
     outline-offset .15em
@@ -117,7 +132,8 @@ scrollbar({
 Sets the selection background & text color
 
 ```stylus
-// Example
+@import 'arbalet'
+
 selection(#0048ff, white)
 ```
 
@@ -128,7 +144,8 @@ selection(#0048ff, white)
 Shorthand for `color` property
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     clr #0048ff
 ```
@@ -138,7 +155,8 @@ Shorthand for `color` property
 Shorthand for `background-color` property
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     bgclr #e7e7e7
 ```
@@ -148,7 +166,8 @@ Shorthand for `background-color` property
 Shorthand for `background-image` property
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     bgimg url("https://lapatrie.org/myimage.png")
 ```
@@ -158,7 +177,8 @@ Shorthand for `background-image` property
 Shorthand for `background-image: linear-gradient(arguments)`
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     lgradient to right, #0048ff, #ae00ff
 ```
@@ -168,7 +188,8 @@ Shorthand for `background-image: linear-gradient(arguments)`
 Shorthand for `background-image: radial-gradient(arguments)`
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     rgradient circle, #0048ff, #ae00ff
 ```
@@ -178,7 +199,8 @@ Shorthand for `background-image: radial-gradient(arguments)`
 Adds a gradient to a text. Only works with linear gradient for now.
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     textgradient to right, #0048ff, #ae00ff
 ```
@@ -188,7 +210,8 @@ Adds a gradient to a text. Only works with linear gradient for now.
 Shorthand for `background` property
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     bg #232425
 ```
@@ -198,7 +221,8 @@ Shorthand for `background` property
 Shorthand for `backdrop-filter: blur(value)` property. Now works on Firefox as well
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     bgblur .5rem
 ```
@@ -208,7 +232,8 @@ Shorthand for `backdrop-filter: blur(value)` property. Now works on Firefox as w
 Shorthand for `background-clip` property.
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     bgclip text
 ```
@@ -232,7 +257,8 @@ Creates a default styling form & form components based on BEM naming convention
 w() for width, maxw() for max-width, minw() for min-width. Same thing for height, h(), maxh(), minh()
 
 ```stylus
-// Example
+@import 'arbalet'
+
 // Defaults to % if no unit provided
 body
     w 100 // 100%
@@ -247,13 +273,15 @@ rel // relative
 abs // absolute
 
 // Example
+@import 'arbalet'
+
 .myelement
     pos rel // relative
 ```
 
 ### Flex
 
-`dflex()` is one of the most complete and useful mixins because it allows you to chain the arguments in whatever order you want. Arbalet is figuring out which arg is what and does the job for you. When you call it with or without argument, it automatically writes `display: flex;`
+`dflex()` is one of the most complete and useful mixins because it allows you to chain arguments in whatever order you want. Arbalet is figuring out which arg is what and does the job for you. When you call it with or without argument, it automatically writes `display: flex;`
 
 #### justify-content
 
@@ -264,8 +292,10 @@ jce // justify-content: end;
 sb // justify-content: space-between;
 
 // Example
+@import 'arbalet'
+
 .myelement
-    dflex sb
+    dflex sb // display: flex; justify-content: space-between
 ```
 
 #### align-items
@@ -276,6 +306,8 @@ aic // align-items: center;
 aie // align-items: end;
 
 // Example
+@import 'arbalet'
+
 .myelement
     dflex aic
 ```
@@ -288,6 +320,8 @@ wrev | wraprev // flex-wrap: wrap-reverse;
 now | nowrap // flex-wrap: nowrap
 
 // Example
+@import 'arbalet'
+
 .myelement
     dflex now
 ```
@@ -301,6 +335,8 @@ row // flex-direction: row;
 rowrev // flex-direction: row-reverse;
 
 // Example
+@import 'arbalet'
+
 .myelement
     dflex colrev
 ```
@@ -310,7 +346,8 @@ rowrev // flex-direction: row-reverse;
 `gap` is the only unit-typed argument, so just add it to the arguments list
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     dflex 2rem
 ```
@@ -332,6 +369,8 @@ grow // flex-grow: 1;
 shrink // flex-shrink: 1;
 
 // Example
+@import 'arbalet'
+
 .myelement
     dflex grow
 
@@ -360,7 +399,7 @@ Here is a complete example (yes, it saves so much keystrokes)
 
 ### Grid
 
-`dgrid()` is like the `dflex()` one, you can also chain the arguments in whatever order you want
+`dgrid()` is like the `dflex()` one, you can also chain arguments in whatever order you want
 
 #### align-items / align-content
 
@@ -374,6 +413,8 @@ acc // align-content: center;
 ace // align-content: end;
 
 // Example
+@import 'arbalet'
+
 .myelement
     dgrid aic
 ```
@@ -390,6 +431,8 @@ pic // place-items: center;
 pie // place-items: end;
 
 // Example
+@import 'arbalet'
+
 .myelement
     dgrid pcc
 ```
@@ -399,6 +442,8 @@ pie // place-items: end;
 `gap` is the only unit-typed argument, so just add it to the arguments list
 
 ```stylus
+@import 'arbalet'
+
 .myelement
     dgrid 2rem
 ```
@@ -416,6 +461,8 @@ gtr()
     grid-template-rows arguments
 
 // Example
+@import 'arbalet'
+
 .myelement
     dgrid()
     gtr repeat(2, 1fr)
@@ -433,6 +480,8 @@ ga()
     grid-area arguments
 
 // Example
+@import 'arbalet'
+
 .myelement
     dgrid 2rem
     gta "a b" "a c"
@@ -461,7 +510,8 @@ end // place-self: end;
 Just call the dblock() and dnone() mixins
 
 ```stylus
-// Example
+@import 'arbalet'
+
 .myelement
     dnone()
     &.visible
@@ -504,6 +554,8 @@ Line clamp is no longer a nightmare. Use `lineclamp()` mixin
 
 ```stylus
 // Example
+@import 'arbalet'
+
 .myelement
     lineclamp 5
 
@@ -585,6 +637,8 @@ fs()
     font-size arguments
 
 // Example
+@import 'arbalet'
+
 .myelement
     fs 1.5rem
 ```
@@ -597,6 +651,8 @@ fclamp()
     font-size clamp(unquote(join(',', arguments)))
 
 // Example
+@import 'arbalet'
+
 .myelement
     fclamp 1rem 12vw 1.5rem
 ```
@@ -609,6 +665,8 @@ fw()
     font-weight arguments
 
 // Example
+@import 'arbalet'
+
 .myelement
     fw 700
 ```
@@ -621,6 +679,8 @@ ffam()
     font-family arguments
 
 // Example
+@import 'arbalet'
+
 .myelement
     ffam 'Readex Pro', sans-serif
 ```
@@ -654,6 +714,8 @@ This is probably not what you expect, it creates an underline animation when hov
 
 ```stylus
 // Example
+@import 'arbalet'
+
 .link
     underline(left)
 ```
@@ -669,3 +731,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## License
 
 [GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
+
+## TODO
+
+- [ ] word-wrap mixin
+- [ ] overflow mixins
+- [ ] better folder structure/file naming
+- [ ] fade-in/out opacity/pointer-events mixin?

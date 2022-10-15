@@ -20,7 +20,9 @@ debug()
         clr black !important
 
 // TODO: custom colors (with var(--))?
-debugLive() // Need to import script in html file. Toggle keybind: CTRL+D
+debugLive()
+    remixicon()
+    
     .debugLive
         &Container
             pos fixed
@@ -42,6 +44,7 @@ debugLive() // Need to import script in html file. Toggle keybind: CTRL+D
             clr white !important
             rad .25em
             dflex aic .25em
+            ffam 'Readex Pro', sans-serif
             &::selection
                 bgclr transparent
             &::before
