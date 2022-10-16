@@ -1,18 +1,17 @@
 {
   "name": "arbalet",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Stylus utility mixins and more",
   "main": "index.styl",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sqmasep/arbalet"
   },
   "keywords": [
     "stylus",
-    "css"
+    "css",
+    "library",
+    "mixins"
   ],
   "author": "sqmasep",
   "license": "GPL-3"

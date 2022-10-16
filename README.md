@@ -52,9 +52,9 @@ log(thing)
 
 Outlines all elements in black and replace the background to a semi-transparent green. This is useful to debug CSS to see where HTML tags are, how they behave together etc
 
-### `debugLive`
+### `debugLive()`
 
-To use this, you have to add a script to your top-level file app (index.tsx in React for example). It allows you to toggle the debug function on the HTML page directly, and also when you press <kbd>CTRL</kbd>, you will see the current element in red, the parent element in orange, and the siblings in blue.
+To use this, you have to add a script to your top-level app file (index.tsx in React for example). It allows you to toggle the debug function on the HTML page directly, and also when you press <kbd>CTRL</kbd>, you will see the current element in red, the parent element in orange, and the siblings in blue. This file is written in vanilla javascript
 
 ```jsx
 import "arbalet/scripts/debugLive";
@@ -63,6 +63,8 @@ import "arbalet/scripts/debugLive";
 To enable it, press <kbd>CTRL</kbd>+<kbd>\*</kbd>. You can also call the mixin `debugLive()` to show a toggle button. It can takes arguments, to position the button
 
 ```stylus
+@import 'arbalet'
+
 debugLive(bottom left) // defaults to bottom right
 ```
 
@@ -135,6 +137,28 @@ Sets the selection background & text color
 @import 'arbalet'
 
 selection(#0048ff, white)
+```
+
+### `+before(content)` / `+after(content)`
+
+Don't write the annoying anymore. Compose your pseudo-elements directly in the mixin
+
+```stylus
+// Without the mixin
+a + a
+    &::after
+        content '>'
+        color black
+
+// With the mixin
+@import 'arbalet'
+
+a + a
+    +after('>')
+        color black
+
+
+
 ```
 
 ## Colors, backgrounds
@@ -238,6 +262,17 @@ Shorthand for `background-clip` property.
     bgclip text
 ```
 
+### `setopacity(color, amount)` / `opacify(color, amount)`
+
+Sets the opacity to `amount`
+
+```stylus
+@import 'arbalet'
+
+.myelement
+    bgclr opacify(black, 20%)
+```
+
 # Components
 
 Arbalet uses `@layer components` for components mixins
@@ -266,7 +301,7 @@ body
     minh 20rem // 20rem
 ```
 
-### Position
+## Position
 
 ```stylus
 rel // relative
@@ -279,11 +314,11 @@ abs // absolute
     pos rel // relative
 ```
 
-### Flex
+## Flex
 
 `dflex()` is one of the most complete and useful mixins because it allows you to chain arguments in whatever order you want. Arbalet is figuring out which arg is what and does the job for you. When you call it with or without argument, it automatically writes `display: flex;`
 
-#### justify-content
+### justify-content
 
 ```stylus
 jcs // justify-content: start;
@@ -298,7 +333,7 @@ sb // justify-content: space-between;
     dflex sb // display: flex; justify-content: space-between
 ```
 
-#### align-items
+### align-items
 
 ```stylus
 ais // align-items: start;
@@ -312,7 +347,7 @@ aie // align-items: end;
     dflex aic
 ```
 
-#### flex-wrap
+### flex-wrap
 
 ```stylus
 w | wrap // flex-wrap: wrap;
@@ -326,7 +361,7 @@ now | nowrap // flex-wrap: nowrap
     dflex now
 ```
 
-#### flex-direction
+### flex-direction
 
 ```stylus
 col // flex-direction: column
@@ -341,7 +376,7 @@ rowrev // flex-direction: row-reverse;
     dflex colrev
 ```
 
-#### gap
+### gap
 
 `gap` is the only unit-typed argument, so just add it to the arguments list
 
@@ -352,7 +387,7 @@ rowrev // flex-direction: row-reverse;
     dflex 2rem
 ```
 
-#### flex-grow / flex-shrink
+### flex-grow / flex-shrink
 
 This one modify the direct children from the container where you call it
 
@@ -397,11 +432,11 @@ Here is a complete example (yes, it saves so much keystrokes)
         flex-grow 1
 ```
 
-### Grid
+## Grid
 
 `dgrid()` is like the `dflex()` one, you can also chain arguments in whatever order you want
 
-#### align-items / align-content
+### align-items / align-content
 
 ```stylus
 ais // align-items: start;
@@ -419,7 +454,7 @@ ace // align-content: end;
     dgrid aic
 ```
 
-#### place-content / place-items
+### place-content / place-items
 
 ```stylus
 pcs // place-content: start;
@@ -437,7 +472,7 @@ pie // place-items: end;
     dgrid pcc
 ```
 
-#### gap
+### gap
 
 `gap` is the only unit-typed argument, so just add it to the arguments list
 
@@ -448,9 +483,9 @@ pie // place-items: end;
     dgrid 2rem
 ```
 
-### grid templates & areas
+## grid templates & areas
 
-#### grid-template-columns / grid-template-rows
+### grid-template-columns / grid-template-rows
 
 ```stylus
 // Source code
@@ -487,7 +522,7 @@ ga()
     gta "a b" "a c"
 ```
 
-### self
+## self
 
 `self()` is a special mixin, with a little different syntax but works the same
 
@@ -505,7 +540,7 @@ center // place-self: center;
 end // place-self: end;
 ```
 
-### block & none
+## block & none
 
 Just call the dblock() and dnone() mixins
 
@@ -518,7 +553,7 @@ Just call the dblock() and dnone() mixins
         dblock()
 ```
 
-### border-radius
+## border-radius
 
 How many times have you tried to change the two top border radiuses with logical properties on first try? Now, use Arbalet's border-radius mixins
 
@@ -548,7 +583,7 @@ radright()
     border-end-end-radius arguments
 ```
 
-### lineclamp(lines)
+## `lineclamp(lines)`
 
 Line clamp is no longer a nightmare. Use `lineclamp()` mixin
 
@@ -567,18 +602,18 @@ Line clamp is no longer a nightmare. Use `lineclamp()` mixin
     overflow: hidden;
 ```
 
-### aspect-ratio
+## aspect-ratio
 
 ```stylus
 ratio()
     aspect-ratio arguments
 ```
 
-## Spacing
+# Spacing
 
 Arbalet encourages the use of logical properties, so it's all about "inline" or "block" according to the X and Y axis
 
-### Margins & Paddings
+## Margins & Paddings
 
 ```stylus
 //// Margins
@@ -627,9 +662,9 @@ pie()
 
 ```
 
-## Typography
+# Typography
 
-### fs
+## font-size
 
 ```stylus
 // Source
@@ -643,7 +678,7 @@ fs()
     fs 1.5rem
 ```
 
-### fclamp
+## `fclamp()`
 
 ```stylus
 // Source
@@ -657,7 +692,7 @@ fclamp()
     fclamp 1rem 12vw 1.5rem
 ```
 
-### fw
+## font-weight
 
 ```stylus
 // Source
@@ -671,7 +706,7 @@ fw()
     fw 700
 ```
 
-### ffam
+## font-family
 
 ```stylus
 // Source
@@ -685,7 +720,7 @@ ffam()
     ffam 'Readex Pro', sans-serif
 ```
 
-### txt | text
+## `txt()` | `text()`
 
 ```stylus
 i | italic // font-style: italic;
@@ -708,9 +743,23 @@ right // text-align: right;
 "Readex Pro" // if string, font-family
 ```
 
-### underline(from)
+## text-decoration
 
-This is probably not what you expect, it creates an underline animation when hovered, by using `::before` pseudo-element
+```stylus
+// Source
+deco()
+    text-decoration arguments
+
+// Example
+@import 'arbalet'
+
+a
+    deco none
+```
+
+## `underline(from)`
+
+This is probably not what you expect, it creates an underline animation when hovered (and also removes the default text-decoration: underline), by using `::before` pseudo-element
 
 ```stylus
 // Example
@@ -720,21 +769,23 @@ This is probably not what you expect, it creates an underline animation when hov
     underline(left)
 ```
 
-## Custom variables
+# Custom variables (soon)
 
 You can directly access to the `variables.styl` file to implement your variables. Some variables are already defaulted (Soon)
 
-## Contributing
+# Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Feel free to ask for new features or to contribute. Consider opening a new issue first, to discuss about it
 
-## License
+# License
 
 [GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
 
-## TODO
+# TODO
 
 - [ ] word-wrap mixin
 - [ ] overflow mixins
 - [ ] better folder structure/file naming
 - [ ] fade-in/out opacity/pointer-events mixin?
+- [ ] improve resp() & transforms mixins
+- [ ] add more custom variables

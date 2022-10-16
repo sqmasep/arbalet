@@ -45,6 +45,7 @@ debugLive()
             rad .25em
             dflex aic .25em
             ffam 'Readex Pro', sans-serif
+            cursor pointer
             &::selection
                 bgclr transparent
             &::before
@@ -197,3 +198,34 @@ setopacity(clr, amount)
     rgba(clr, amount)
 opacify(clr, amount)
     rgba(clr, amount)
+
+
+before(content = '')
+    &::before
+        content content
+        {block}
+
+after(content = '')
+    &::after
+        content content
+        {block}
+
+first()
+    &:first-child
+        {block}
+
+last()
+    &:last-child
+        {block}
+
+child(number)
+    &:nth-child(number)
+        {block}
+
+odd()
+    &:nth-child(odd)
+        {block}
+
+even()
+    &:nth-child(even)
+        {block}
